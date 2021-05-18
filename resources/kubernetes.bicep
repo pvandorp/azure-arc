@@ -3,23 +3,15 @@ targetScope = 'resourceGroup'
 @minLength(3)
 @maxLength(10)
 param prefix string
-
 param subnet_id string
+param log_analytics_workspace_id string
+param app_gateway_id string
 
 var cluster_name = '${prefix}-cluster'
-var cluster_identity_name = '${prefix}-mi'
-
-resource cluster_identity 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' = {
-  name: cluster_identity_name
-  location: resourceGroup().location
-}
 
 resource aks 'Microsoft.ContainerService/managedClusters@2021-03-01' = {
   name: cluster_name
   location: resourceGroup().location
-  dependsOn: [
-    cluster_identity
-  ]
   identity: {
     type: 'SystemAssigned'
   }
@@ -58,6 +50,20 @@ resource aks 'Microsoft.ContainerService/managedClusters@2021-03-01' = {
       loadBalancerSku: 'standard'
       networkPlugin: 'azure'
       networkPolicy: 'calico'
+    }
+    addonProfiles: {
+      'omsagent': {
+        enabled: true
+        config: {
+          logAnalyticsWorkspaceResourceID: log_analytics_workspace_id
+        }
+      }
+      'ingressApplicationGateway': {
+        enabled: true
+        config: {
+          applicationGatewayId: app_gateway_id
+        }
+      }
     }
   }
 }
