@@ -58,3 +58,5 @@ module aks 'kubernetes.bicep' = {
     log_analytics_workspace_id: log_anaytics.outputs.workspace_id
   }
 }
+
+
