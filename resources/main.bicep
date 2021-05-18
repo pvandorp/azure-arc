@@ -1,7 +1,7 @@
 targetScope = 'subscription'
 
 @minLength(3)
-@maxLength(7)
+@maxLength(10)
 param prefix string
 
 resource group 'Microsoft.Resources/resourceGroups@2021-01-01' = {

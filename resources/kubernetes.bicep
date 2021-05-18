@@ -1,7 +1,7 @@
 targetScope = 'resourceGroup'
 
 @minLength(3)
-@maxLength(7)
+@maxLength(10)
 param prefix string
 
 param subnet_id string
