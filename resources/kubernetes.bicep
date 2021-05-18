@@ -52,6 +52,9 @@ resource aks 'Microsoft.ContainerService/managedClusters@2021-03-01' = {
       networkPolicy: 'calico'
     }
     addonProfiles: {
+      'azurepolicy': {
+        enabled: true
+      }
       'omsagent': {
         enabled: true
         config: {
