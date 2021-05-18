@@ -22,9 +22,9 @@ resource aks 'Microsoft.ContainerService/managedClusters@2021-03-01' = {
     kubernetesVersion: '1.20.5'
     aadProfile: {
       managed: true
-      tenantID: '336b498d-d4da-4216-b76f-21fe7f4affd5'
+      tenantID: '72f988bf-86f1-41af-91ab-2d7cd011db47'
       adminGroupObjectIDs: [
-        '0ea7997e-15e6-4e50-87f1-fd3a38d9235a'
+        '10c171d7-c823-4f07-9052-e542fe0397a3'
       ]
     }
     agentPoolProfiles: [
