@@ -7,10 +7,10 @@ param prefix string
 param subnet_id string
 
 var cluster_name = '${prefix}-cluster'
-var cluster_identity = '${prefix}-mi'
+var cluster_identity_name = '${prefix}-mi'
 
-resource identity 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' = {
-  name: cluster_identity
+resource cluster_identity 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' = {
+  name: cluster_identity_name
   location: resourceGroup().location
 }
 
@@ -18,17 +18,16 @@ resource aks 'Microsoft.ContainerService/managedClusters@2021-03-01' = {
   name: cluster_name
   location: resourceGroup().location
   dependsOn: [
-    identity
+    cluster_identity
   ]
-  sku: {
-    name: 'Basic'
+  identity: {
+    type: 'SystemAssigned'
   }
   properties: {
     dnsPrefix: prefix
     enableRBAC: true
     nodeResourceGroup: '${cluster_name}-resources'
     kubernetesVersion: '1.20.5'
-    identityProfile: identity
     aadProfile: {
       managed: true
       tenantID: '336b498d-d4da-4216-b76f-21fe7f4affd5'
@@ -48,9 +47,7 @@ resource aks 'Microsoft.ContainerService/managedClusters@2021-03-01' = {
         maxCount: 10
         minCount: 3
         mode: 'System'
-        osType:'Linux'
-        osSKU: 'Ubuntu'
-        osDiskType: 'Ephemeral'
+        vmSize: 'standard_ds2_v2'
         type: 'VirtualMachineScaleSets'
         vnetSubnetID: subnet_id
       }
