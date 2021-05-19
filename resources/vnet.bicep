@@ -48,6 +48,7 @@ resource vnet 'Microsoft.Network/virtualNetworks@2020-11-01' = {
     ddosProtectionPlan: {
       id: ddos_plan.id
     }
+    enableDdosProtection: true
   }
 }
 
