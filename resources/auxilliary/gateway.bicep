@@ -7,8 +7,8 @@ param prefix string
 param gateway_subnet_id string
 
 
-var public_ip_name = '${prefix}-gateway-pip'
-var app_gateway_name = '${prefix}-gateway'
+var public_ip_name = '${prefix}-app-gateway-public-ip'
+var app_gateway_name = '${prefix}-app-gateway'
 var app_gateway_id = resourceId('Microsoft.Network/applicationGateways', app_gateway_name)
 
 resource public_ip 'Microsoft.Network/publicIPAddresses@2020-11-01' = {
@@ -25,7 +25,7 @@ resource public_ip 'Microsoft.Network/publicIPAddresses@2020-11-01' = {
   properties: {
     publicIPAllocationMethod: 'Static'
     dnsSettings: {
-      domainNameLabel: 'mixellaneous'
+      domainNameLabel: prefix
     }
   }
 }

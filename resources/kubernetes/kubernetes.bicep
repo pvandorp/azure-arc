@@ -7,7 +7,7 @@ param subnet_id string
 param log_analytics_workspace_id string
 param app_gateway_id string
 
-var cluster_name = '${prefix}-cluster'
+var cluster_name = '${prefix}-aks-cluster'
 
 resource aks 'Microsoft.ContainerService/managedClusters@2021-03-01' = {
   name: cluster_name
@@ -70,3 +70,5 @@ resource aks 'Microsoft.ContainerService/managedClusters@2021-03-01' = {
     }
   }
 }
+
+output kubelet_principal_id string = aks.properties.identityProfile.kubeletIdentity.objectId

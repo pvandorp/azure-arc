@@ -2,39 +2,66 @@ targetScope = 'subscription'
 
 @minLength(3)
 @maxLength(10)
-param prefix string
+param prefix string = 'padorp'
 
-resource group 'Microsoft.Resources/resourceGroups@2021-01-01' = {
-  name: 'azure-arc'
+resource kubernetes_group 'Microsoft.Resources/resourceGroups@2021-01-01' = {
+  name: prefix
   location: 'westeurope'
 }
 
-module log_anaytics 'log-anaytics.bicep' = {
-  name: 'log-analytics-workspace-deployment'
-  scope: resourceGroup(group.name)
+resource aux_group 'Microsoft.Resources/resourceGroups@2021-01-01' = {
+  name: '${prefix}-auxilliary'
+  location: 'westeurope'
+}
+
+module initiatives 'policies/policy_initiative.bicep' = {
+  name: '${prefix}-policy-initiatives-deployment'
   dependsOn: [
-    group
+    aux_group
+    kubernetes_group
   ]
   params: {
     prefix: prefix
   }
 }
 
-module network 'vnet.bicep' = {
+module container_registry 'auxilliary/container-registry.bicep' = {
+  name: 'container-registry-deployment'
+  scope: resourceGroup(aux_group.name)
+  dependsOn: [
+    aux_group
+  ]
+  params: {
+    prefix: prefix
+  }
+}
+
+module log_anaytics 'auxilliary/log-anaytics.bicep' = {
+  name: 'log-analytics-workspace-deployment'
+  scope: resourceGroup(aux_group.name)
+  dependsOn: [
+    aux_group
+  ]
+  params: {
+    prefix: prefix
+  }
+}
+
+module network 'auxilliary/vnet.bicep' = {
   name: 'network-deployment'
   dependsOn: [
-    group
+    aux_group
   ]
-  scope: resourceGroup(group.name)
+  scope: resourceGroup(aux_group.name)
   params: {
     prefix: prefix
     vnet_number: 0
   }
 }
 
-module gateway 'gateway.bicep' = {
+module gateway 'auxilliary/gateway.bicep' = {
   name: 'app-gateway-deployment'
-  scope: resourceGroup(group.name)
+  scope: resourceGroup(aux_group.name)
   dependsOn: [
     network
   ]
@@ -44,12 +71,13 @@ module gateway 'gateway.bicep' = {
   }
 }
 
-module aks 'kubernetes.bicep' = {
+module aks 'kubernetes/kubernetes.bicep' = {
   name: 'aks-deployment'
-  scope: resourceGroup(group.name)
+  scope: resourceGroup(kubernetes_group.name)
   dependsOn: [
     gateway
     log_anaytics
+    kubernetes_group
   ]
   params: {
     prefix: prefix
@@ -59,4 +87,15 @@ module aks 'kubernetes.bicep' = {
   }
 }
 
-
+module acr_pull_access 'kubernetes/acr-pull-role-assignment.bicep' = {
+  name: 'acr-pull-role-assignment'
+  dependsOn: [
+    container_registry
+    aks
+  ]
+  scope: resourceGroup(aux_group.name)
+  params: {
+    prefix: prefix
+    kubelet_principal_id: aks.outputs.kubelet_principal_id
+  }
+}

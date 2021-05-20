@@ -40,5 +40,5 @@ jobs:
         with:
           # Specify the script here
           inlineScript: |
-            az deployment sub create -l westeurope -f ./resources/main.bicep --parameters prefix=azure-arc
+            az deployment sub create -l westeurope -f ./resources/main.bicep
      
