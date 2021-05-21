@@ -12,7 +12,6 @@ resource kubernetes_initiative 'Microsoft.Authorization/policySetDefinitions@202
   properties: {
     description: 'The gloabal initiative for all policies that should be enfornced on Kubernetes clusters.'
     displayName: '(${kubernetes_initiative_name})'
-    policyType: 'BuiltIn'
     policyDefinitions: [
       {
         policyDefinitionId: '0a15ec92-a229-4763-bb14-0ea34a568f8d'
@@ -72,7 +71,6 @@ resource aux_initiative 'Microsoft.Authorization/policySetDefinitions@2020-09-01
   properties: {
     description: 'The gloabal initiative for all policies that should be enfornced on Kubernetes clusters.'
     displayName: '(${kubernetes_initiative_name})'
-    policyType: 'BuiltIn'
     policyDefinitions: [
       {
         policyDefinitionId: 'c25d9a16-bc35-4e15-a7e5-9db606bf9ed4'
