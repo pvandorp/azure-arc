@@ -59,7 +59,12 @@ resource kubernetes_initiative 'Microsoft.Authorization/policySetDefinitions@202
         policyDefinitionId: '/providers/Microsoft.Authorization/policyDefinitions/95edb821-ddaf-4404-9732-666045e056b4'
         parameters: {
           excludedNamespaces: {
-            value: 'kube-system;gatekeeper-system;azure-arc;configurations'
+            value: [
+              'kube-system'
+              'gatekeeper-system'
+              'azure-arc'
+              'configurations'
+            ]
           }
         }
       }
