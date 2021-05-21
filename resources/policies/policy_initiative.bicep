@@ -15,10 +15,10 @@ resource kubernetes_initiative 'Microsoft.Authorization/policySetDefinitions@202
     policyType: 'Custom'
     policyDefinitions: [
       {
-        policyDefinitionId: '0a15ec92-a229-4763-bb14-0ea34a568f8d'
+        policyDefinitionId: resourceId('Microsoft.Authorization/policyDefinitions', '0a15ec92-a229-4763-bb14-0ea34a568f8d')
       }
       {
-        policyDefinitionId: '1d61c4d2-aef2-432b-87fc-7f96b019b7e1'
+        policyDefinitionId: resourceId('Microsoft.Authorization/policyDefinitions', '1d61c4d2-aef2-432b-87fc-7f96b019b7e1')
         parameters: {
           configurationResourceName: {
             value: 'infra-configuration'
@@ -47,16 +47,16 @@ resource kubernetes_initiative 'Microsoft.Authorization/policySetDefinitions@202
         }
       }
       {
-        policyDefinitionId: '8dfab9c4-fe7b-49ad-85e4-1e9be085358f'
+        policyDefinitionId: resourceId('Microsoft.Authorization/policyDefinitions', '8dfab9c4-fe7b-49ad-85e4-1e9be085358f')
       }
       {
-        policyDefinitionId: '523b5cd1-3e23-492f-a539-13118b6d1e3a'
+        policyDefinitionId: resourceId('Microsoft.Authorization/policyDefinitions', '523b5cd1-3e23-492f-a539-13118b6d1e3a')
       }
       {
-        policyDefinitionId: 'ac4a19c2-fa67-49b4-8ae5-0b2e78c49457'
+        policyDefinitionId: resourceId('Microsoft.Authorization/policyDefinitions', 'ac4a19c2-fa67-49b4-8ae5-0b2e78c49457')
       }
       {
-        policyDefinitionId: '95edb821-ddaf-4404-9732-666045e056b4'
+        policyDefinitionId: resourceId('Microsoft.Authorization/policyDefinitions', '95edb821-ddaf-4404-9732-666045e056b4')
         parameters: {
           excludedNamespaces: {
             value: 'kube-system;gatekeeper-system;azure-arc;configurations'
@@ -75,7 +75,7 @@ resource aux_initiative 'Microsoft.Authorization/policySetDefinitions@2020-09-01
     policyType: 'Custom'
     policyDefinitions: [
       {
-        policyDefinitionId: 'c25d9a16-bc35-4e15-a7e5-9db606bf9ed4'
+        policyDefinitionId: resourceId('Microsoft.Authorization/policyDefinitions', 'c25d9a16-bc35-4e15-a7e5-9db606bf9ed4')
       }
     ]
   }
