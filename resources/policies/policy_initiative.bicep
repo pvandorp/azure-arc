@@ -39,7 +39,7 @@ resource kubernetes_initiative 'Microsoft.Authorization/policySetDefinitions@202
             value: 'https://github.com/pvandorp/azure-arc.git'
           }
           enableHelmOperator: {
-            value: true
+            value: 'true'
           }
           chartValues: {
             value: '--set helm.versions=v3'
