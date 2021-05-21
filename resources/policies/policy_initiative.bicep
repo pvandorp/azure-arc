@@ -8,7 +8,7 @@ var kubernetes_initiative_name = '${prefix}-kubernetes-initiative'
 var aux_initiative_name = '${prefix}-auxilliary-initiative'
 
 resource kubernetes_initiative 'Microsoft.Authorization/policySetDefinitions@2020-09-01' = {
-  name: '${kubernetes_initiative_name}-kubernetes'
+  name: guid(kubernetes_initiative_name)
   properties: {
     description: 'The global initiative for all policies that should be enforced on Kubernetes clusters.'
     displayName: '(${prefix}) Global Kubernetes Policies'
@@ -68,7 +68,7 @@ resource kubernetes_initiative 'Microsoft.Authorization/policySetDefinitions@202
 }
 
 resource aux_initiative 'Microsoft.Authorization/policySetDefinitions@2020-09-01' = {
-  name: '${aux_initiative_name}'
+  name: guid(aux_initiative_name)
   properties: {
     description: 'The global initiative for all policies for services auxilliary to Kubernetes.'
     displayName: '(${prefix}) Global Auxilliary Services Policies'
