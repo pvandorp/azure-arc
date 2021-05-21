@@ -87,6 +87,11 @@ module aks 'kubernetes/kubernetes.bicep' = {
   }
 }
 
+resource registry 'Microsoft.ContainerRegistry/registries@2020-11-01-preview' existing = {
+  name: '${prefix}registry'
+  scope: resourceGroup(aux_group.name)
+}
+
 module acr_pull_access 'kubernetes/acr-pull-role-assignment.bicep' = {
   name: 'acr-pull-role-assignment'
   dependsOn: [

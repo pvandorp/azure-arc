@@ -18,6 +18,6 @@ resource role_assignment 'Microsoft.Authorization/roleAssignments@2020-04-01-pre
   ]
   properties: {
     principalId: kubelet_principal_id
-    roleDefinitionId: '7f951dda-4ed3-4680-a7ca-43fe172d538d'
+    roleDefinitionId: resourceId('Microsoft.Authorization/roleDefinitions', '7f951dda-4ed3-4680-a7ca-43fe172d538d')
   }
 }
