@@ -12,6 +12,7 @@ resource kubernetes_initiative 'Microsoft.Authorization/policySetDefinitions@202
   properties: {
     description: 'The global initiative for all policies that should be enforced on Kubernetes clusters.'
     displayName: '(${prefix}) Global Kubernetes Policies'
+    policyType: 'Custom'
     policyDefinitions: [
       {
         policyDefinitionId: '0a15ec92-a229-4763-bb14-0ea34a568f8d'
@@ -71,6 +72,7 @@ resource aux_initiative 'Microsoft.Authorization/policySetDefinitions@2020-09-01
   properties: {
     description: 'The global initiative for all policies for services auxilliary to Kubernetes.'
     displayName: '(${prefix}) Global Auxilliary Services Policies'
+    policyType: 'Custom'
     policyDefinitions: [
       {
         policyDefinitionId: 'c25d9a16-bc35-4e15-a7e5-9db606bf9ed4'
