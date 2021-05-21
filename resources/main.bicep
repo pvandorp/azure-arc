@@ -96,6 +96,7 @@ module acr_pull_access 'kubernetes/acr-pull-role-assignment.bicep' = {
   scope: resourceGroup(aux_group.name)
   params: {
     prefix: prefix
+    container_registry_name: container_registry.outputs.name
     kubelet_principal_id: aks.outputs.kubelet_principal_id
   }
 }
