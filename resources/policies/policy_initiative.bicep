@@ -33,7 +33,7 @@ resource kubernetes_initiative 'Microsoft.Authorization/policySetDefinitions@202
             value: 'cluster'
           }
           operatorParams: {
-            value: '--branch=main --path=releases/demo --git-readonly --git-poll-interval=3s --sync-garbage-collection --git-user=padorp --git-email=padorp@microsoft.com'
+            value: '--branch=main --path=releases/demo --git-poll-interval=3s --sync-garbage-collection --git-user=padorp --git-email=padorp@microsoft.com'
           }
           repositoryUrl: {
             value: 'https://github.com/pvandorp/azure-arc.git'
