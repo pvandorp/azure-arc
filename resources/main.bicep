@@ -25,6 +25,30 @@ module initiatives 'policies/policy_initiative.bicep' = {
   }
 }
 
+module aux_policy_assignments 'policies/aux_policy.bicep' = {
+  name: 'auxilliary-policy-assignments'
+  dependsOn: [
+    initiatives
+  ]
+  scope: resourceGroup(aux_group.name)
+  params: {
+    prefix: prefix
+    policy_definition_id: initiatives.outputs.aux_initiative_id
+  }
+}
+
+module kubernetes_policy_assignments 'policies/kubernetes_policy.bicep' = {
+  name: 'kubernetes-policy-assignments'
+  dependsOn: [
+    initiatives
+  ]
+  scope: resourceGroup(kubernetes_group.name)
+  params: {
+    prefix: prefix
+    policy_definition_id: initiatives.outputs.kubernetes_initiative_id
+  }
+}
+
 module container_registry 'auxilliary/container-registry.bicep' = {
   name: 'container-registry-deployment'
   scope: resourceGroup(aux_group.name)
